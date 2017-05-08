@@ -21,8 +21,8 @@ import net.sf.sevenzipjbinding.simple.ISimpleInArchiveItem;
 public class HttpIsoReader {
     IInArchive archive;
     
-    private static final String RE7ZIP_VERSION = "1.2";
-    private static final String RE7ZIP_PROJECT_PAGE = "http://code.google.com/p/re7zip/";
+    private static final String RE7ZIP_VERSION = "1.3";
+    private static final String RE7ZIP_PROJECT_PAGE = "http://github/ghuls/re7zip/";
     private static final String RE7ZIP_DOWNLOAD_PAGE = "http://reboot.pro/files/file/224-re7zip/";
     private static final String LIB_7ZIP_JBINDING_VERSION = SevenZip.getSevenZipJBindingVersion();
     private static final String LIB_7ZIP_JBINDING_PROJECT_PAGE = "http://sevenzipjbind.sourceforge.net/";
