@@ -34,7 +34,15 @@ public class MonitorIInStream implements IInStream {
         return read;
     }
 
-    private synchronized  int getIndex() {
+    public void close() throws SevenZipException {
+        try {
+            s.close();
+        } catch (Exception ex) {
+            throw new SevenZipException(ex.getMessage());
+        }
+    }
+
+    private synchronized int getIndex() {
         return i++;
     }
 }
