@@ -29,10 +29,11 @@ public class HttpIInStream implements IInStream {
         /* Do a HEAD request on the provided URL to get the size of the file. */
         httpConnection.setRequestMethod("HEAD");
         length = Long.parseLong(httpConnection.getHeaderField("Content-Length"));
+        /* Set position in the file to 0. */
+        position = 0;
     }
 
     private void positionStream(long pos) throws Exception {
-
         if (position == pos && pos != 0) {
             return;
         }
@@ -83,6 +84,15 @@ public class HttpIInStream implements IInStream {
      * {@inheritDoc}
      */
     public int read(byte[] data) throws SevenZipException {
+        try {
+            /* Initialise stream if this is the first read operation and no seeking was done. */
+            if (position == 0 && stream == null) {
+                positionStream(0);
+            }
+        } catch (Exception e) {
+            throw new SevenZipException("Error while seeking to beginning of file", e);
+        }
+
         try {
             int read = stream.read(data);
             if (read == -1) {
