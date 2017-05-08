@@ -19,12 +19,12 @@ import net.sf.sevenzipjbinding.simple.ISimpleInArchiveItem;
  * @author wael
  */
 public class HttpIsoReader {
-    ISevenZipInArchive archive;
+    IInArchive archive;
     
     private static final String RE7ZIP_VERSION = "1.2";
     private static final String RE7ZIP_PROJECT_PAGE = "http://code.google.com/p/re7zip/";
     private static final String RE7ZIP_DOWNLOAD_PAGE = "http://reboot.pro/files/file/224-re7zip/";
-    private static final String LIB_7ZIP_JBINDING_VERSION = "4.65-1.06rc-extr-only";
+    private static final String LIB_7ZIP_JBINDING_VERSION = SevenZip.getSevenZipJBindingVersion();
     private static final String LIB_7ZIP_JBINDING_PROJECT_PAGE = "http://sevenzipjbind.sourceforge.net/";
 
     private static void version() {
