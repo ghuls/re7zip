@@ -254,6 +254,9 @@ public class HttpIsoReader {
         if (archive_filename.toLowerCase().startsWith("http://")) {
             System.out.println("Opening HTTP archive '" + archive_filename + "'.");
             result = reader.open(archive_filename, archive_type);
+        } else if (archive_filename.toLowerCase().startsWith("https://")) {
+            System.out.println("Opening HTTPS archive '" + archive_filename + "'.");
+            result = reader.open(archive_filename, archive_type);
         } else {
             System.out.println("Opening FILE archive '" + archive_filename + "'.");
             try {
@@ -307,7 +310,8 @@ public class HttpIsoReader {
         long end = System.currentTimeMillis();
         long time = (end - start) / 1000;
 
-        if (archive_filename.toLowerCase().startsWith("http://")) {
+        if (archive_filename.toLowerCase().startsWith("http://")
+                || archive_filename.toLowerCase().startsWith("https://")) {
             System.out.println("Done. Downloaded in " + (time / 60) + " minutes and " + (time % 60) + " seconds.");
         } else {
             System.out.println("Done. Processed in " + (time / 60) + " minutes and " + (time % 60) + " seconds.");
