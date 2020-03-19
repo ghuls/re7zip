@@ -71,7 +71,7 @@ public class HttpIsoReader {
                          + "                               /o=file.txt\n");
         System.out.println("          java -jar re7zip.jar /t=iso\n"
                          + "                               /a=http://test.com/test.iso\n"
-                         + "                               -l\n");
+                         + "                               /l\n");
         System.out.println("          java -jar re7zip.jar -t=iso\n"
                          + "                               -a=http://test.com/test.iso\n"
                          + "                               -e=some/file.txt\n"
