@@ -37,7 +37,7 @@ public class HttpIsoReader {
     }
     
     private static void usage() {
-        String archive_types = "";
+        String archive_types = "                      auto (default)";
         String archive_type;
 
         System.out.println("\nUsage:    java -jar re7zip.jar [OPTIONS]\n");
@@ -215,12 +215,14 @@ public class HttpIsoReader {
                     archive_type_arg = "SEVEN_ZIP";
                 }
                 
-                try {
-                    archive_type = ArchiveFormat.valueOf(archive_type_arg);
-                } catch (IllegalArgumentException e) {
-                    System.out.println("\nInvalid File Type : " + archive_type_arg + "\n");
-                    usage();
-                    System.exit(1);
+                if (!archive_type_arg.equals("AUTO")) {
+                    try {
+                        archive_type = ArchiveFormat.valueOf(archive_type_arg);
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("\nInvalid File Type : " + archive_type_arg + "\n");
+                        usage();
+                        System.exit(1);
+                    }
                 }
             } else if (arg_lower.startsWith("/a=") || arg_lower.startsWith("-a=")) {
                 archive_filename = arg.substring(3);
@@ -236,7 +238,7 @@ public class HttpIsoReader {
             }
         }
 
-        if (archive_type == null || archive_filename == null) {
+        if (archive_filename == null) {
             usage();
             System.exit(1);
         }
