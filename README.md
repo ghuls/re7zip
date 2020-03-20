@@ -2,13 +2,18 @@
 
 This tools allows to extract files directly from an archive hosted at a remote HTTP server.
 
-Underneath the hood we use [7-Zip-JBinding library](http://sevenzipjbind.sourceforge.net/) (based on [7-zip](http://www.7-zip.org/)) to extract files. This tool was made with the purpose of (for example) extracting a file from a big ISO files somewhere on the Internet without need to download the whole ISO file.
+Underneath the hood we use [7-Zip-JBinding library](http://sevenzipjbind.sourceforge.net/)
+(based on [7-zip](http://www.7-zip.org/)) to extract files.
+This tool was made with the purpose of (for example) extracting a file from a big ISO files
+somewhere on the Internet without need to download the whole ISO file.
 
 All the archives supported by 7-zip are supported by this tool, this includes:
+  - auto (autodect archive type: default)
   - zip
   - tar
   - split
   - rar
+  - rar5
   - lzma
   - iso
   - hfs
@@ -22,25 +27,28 @@ All the archives supported by 7-zip are supported by this tool, this includes:
   - lzh
   - chm
   - nsis
-  - deb
+  - ar
   - rpm
   - udf
   - wim
   - xar
+  - fat
+  - ntfs
 
 
 ## Usage
 
 
 ```
-$ java -jar store/re7zip.jar
+$ java -jar re7zip.jar
 
 Usage:    java -jar re7zip.jar [OPTIONS]
 
 Options:
           /t  -t    archive filetype:
-                      zip, tar, split, rar, lzma, iso, hfs, gzip, cpio, bzip2,
-                      7z, z, arj, cab, lzh, chm, nsis, deb, rpm, udf, wim, xar,
+                      auto (default), zip, tar, split, rar, rar5, lzma, iso,
+                      hfs, gzip, cpio, bzip2, 7z, z, arj, cab, lzh, chm, nsis,
+                      ar, rpm, udf, wim, xar, fat, ntfs
           /a  -a    archive filename or URL location of archive
           /e  -e    filename to extract out of the archive
           /l  -l    list content of archive
@@ -55,7 +63,7 @@ Example:
 
           java -jar re7zip.jar /t=iso
                                /a=http://test.com/test.iso
-                               -l
+                               /l
 
           java -jar re7zip.jar -t=iso
                                -a=http://test.com/test.iso
@@ -71,7 +79,7 @@ Example:
 ## List all files in the remote archive
 
 ```
-$ java -jar store/re7zip.jar -t=iso -a=http://archive.ubuntu.com/ubuntu/dists/xenial-updates/main/installer-amd64/current/images/netboot/mini.iso -l
+$ java -jar re7zip.jar -t=iso -a=http://archive.ubuntu.com/ubuntu/dists/xenial-updates/main/installer-amd64/current/images/netboot/mini.iso -l
 Opening HTTP archive 'http://archive.ubuntu.com/ubuntu/dists/xenial-updates/main/installer-amd64/current/images/netboot/mini.iso'.
 Archive 'http://archive.ubuntu.com/ubuntu/dists/xenial-updates/main/installer-amd64/current/images/netboot/mini.iso' is open.
 
@@ -359,7 +367,7 @@ Number of items in archive: 274
 ## Extract file from remote archive
 
 ```
-$ java -jar store/re7zip.jar -t=iso -a=http://archive.ubuntu.com/ubuntu/dists/xenial-updates/main/installer-amd64/current/images/netboot/mini.iso -e=boot/grub/grub.cfg -o=grub.cfg
+$ java -jar re7zip.jar -t=iso -a=http://archive.ubuntu.com/ubuntu/dists/xenial-updates/main/installer-amd64/current/images/netboot/mini.iso -e=boot/grub/grub.cfg -o=grub.cfg
 Opening HTTP archive 'http://archive.ubuntu.com/ubuntu/dists/xenial-updates/main/installer-amd64/current/images/netboot/mini.iso'.
 Archive 'http://archive.ubuntu.com/ubuntu/dists/xenial-updates/main/installer-amd64/current/images/netboot/mini.iso' is open.
 Extracting file 'boot/grub/grub.cfg' ...
@@ -388,6 +396,13 @@ http://reboot.pro/files/file/224-re7zip/
 ## History
 
 
+### Version 1.4
+
+  - Add support for reading/extracting archives from HTTPS urls.
+  - Add archive type autodection and set by default (`\t auto`, `-t auto`).
+  - Update [7-Zip-JBinding library](http://sevenzipjbind.sourceforge.net/) to 16.02-2.01.
+    So this improves reading archives supported by 7-zip 16.02.
+
 ### Version 1.3
 
   - Update 7-Zip-JBinding library to 9.20-2.00beta.
@@ -396,10 +411,10 @@ http://reboot.pro/files/file/224-re7zip/
 ### Version 1.2
 
   - Improve accessing files over HTTP
-  - Add "/l" and "-l" option for listing the contents of an archive.
-  - remove our hacked sevenzipjbinding-AllPlatforms.jar version: lib/sevenzipjbinding-AllPlatforms-re7zip.jar
-  - Update 7-Zip-JBinding library to version 4.65-1.06rc-extr-only.
-  - Map archive type "7z" to SEVEN_ZIP so sevenzipjbinding can use it.
+  - Add `/l` and `-l` option for listing the contents of an archive.
+  - remove our hacked sevenzipjbinding-AllPlatforms.jar version: `lib/sevenzipjbinding-AllPlatforms-re7zip.jar`
+  - Update [7-Zip-JBinding library](http://sevenzipjbind.sourceforge.net/) to version 4.65-1.06rc-extr-only.
+  - Map archive type `7z` to `SEVEN_ZIP` so sevenzipjbinding can use it.
 
 ### Version 1.1
 
@@ -411,4 +426,4 @@ http://reboot.pro/files/file/224-re7zip/
 
 ### Version 1.0
 
-  - No changes have been recorded in this version
+  - No changes have been recorded in this version.
